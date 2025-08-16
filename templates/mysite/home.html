@@ -57,4 +57,33 @@
         </div>
     </div>
 </section>
+
+<section id="projects" class="bg-midnight py-20 md:py-32">
+    <div class="max-w-6xl mx-auto px-4">
+        <h2 class="font-display text-4xl text-white text-center mb-12">My Work</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            {% for project in projects %}
+            <div class="bg-charcoal rounded-lg p-6 flex flex-col group hover:transform hover:-translate-y-2 transition-transform duration-300">
+                <div class="flex-grow">
+                    <h3 class="font-display text-2xl text-white mb-2">{{ project.title }}</h3>
+                    <p class="text-gray-400 mb-4">{{ project.short_description }}</p>
+                </div>
+                <div>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        {% for tech in project.get_tech_stack_as_list %}
+                        <span class="bg-midnight text-neon-teal text-sm font-semibold px-3 py-1 rounded-full">{{ tech }}</span>
+                        {% endfor %}
+                    </div>
+                    <a href="{{ project.repo_url }}" target="_blank" rel="noopener noreferrer" class="text-neon-purple font-semibold hover:underline">
+                        View Repository &rarr;
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</section>
 {% endblock content %}

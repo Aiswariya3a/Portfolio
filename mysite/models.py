@@ -18,6 +18,10 @@ class Project(models.Model):
     def __str__(self):
         return self.title
 
+    # Add this new method
+    def get_tech_stack_as_list(self):
+        return [tech.strip() for tech in self.tech_stack.split(',')]
+
 class Skill(models.Model):
     CATEGORY_CHOICES = [
         ('LANGUAGE', 'Programming Language'),
