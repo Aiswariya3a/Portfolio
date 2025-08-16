@@ -43,6 +43,8 @@ class SiteSetting(models.Model):
     email = models.EmailField(max_length=200)
     github_url = models.URLField(max_length=200)
     linkedin_url = models.URLField(max_length=200)
+    profile_picture = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
+
 
     def __str__(self):
         return "Site Settings"
