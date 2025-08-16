@@ -67,13 +67,13 @@
             {% for project in projects %}
             <div class="bg-charcoal rounded-lg p-6 flex flex-col group hover:transform hover:-translate-y-2 transition-transform duration-300">
                 <div class="flex-grow">
-                    <h3 class="font-display text-2xl text-white mb-2">{{ project.title }}</h3>
-                    <p class="text-gray-400 mb-4">{{ project.short_description }}</p>
+                    <h3 class="font-display text-[1.30rem] text-white text-center mb-3">{{ project.title }}</h3>
+                    <p class="text-gray-400 mb-6">{{ project.short_description }}</p>
                 </div>
                 <div>
-                    <div class="flex flex-wrap gap-2 mb-4">
+                    <div class="flex flex-wrap gap-2 mb-5">
                         {% for tech in project.get_tech_stack_as_list %}
-                        <span class="bg-midnight text-neon-teal text-sm font-semibold px-3 py-1 rounded-full">{{ tech }}</span>
+                        <span class="bg-midnight text-neon-teal text-sm font-semibold px-7 py-1 rounded-full">{{ tech }}</span>
                         {% endfor %}
                     </div>
                     <a href="{{ project.repo_url }}" target="_blank" rel="noopener noreferrer" class="text-neon-purple font-semibold hover:underline">
@@ -86,4 +86,34 @@
         </div>
     </div>
 </section>
+
+<section id="skills" class="bg-charcoal py-20 md:py-32">
+    <div class="max-w-6xl mx-auto px-4">
+        <h2 class="font-display text-4xl text-white text-center mb-12">My Technical Arsenal</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+            
+            {% for category, skill_list in grouped_skills.items %}
+            <div class="bg-midnight p-8 rounded-lg">
+                <h3 class="font-display text-2xl text-neon-teal mb-6">{{ category }}</h3>
+                <div class="space-y-6">
+                    {% for skill in skill_list %}
+                    <div>
+                        <div class="flex justify-between items-center mb-1">
+                            <p class="font-semibold text-white">{{ skill.name }}</p>
+                            <p class="text-sm text-gray-400">{{ skill.level }}%</p>
+                        </div>
+                        <div class="w-full bg-charcoal rounded-full h-2.5">
+                            <div class="bg-gradient-to-r from-neon-teal to-neon-purple h-2.5 rounded-full" style="width: {{ skill.level }}%"></div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</section>
+
 {% endblock content %}
