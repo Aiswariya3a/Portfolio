@@ -18,16 +18,13 @@
   <body class="bg-gray-900 text-white">
     <main>{% block content %} {% endblock content %}</main>
 
-    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
-
-    <script src="{% static 'js/particles-config.js' %}"></script>
-    <div
-      id="konami-overlay"
-      class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-    >
-      <p id="konami-text" class="font-display text-4xl md:text-8xl text-white">
-        NEO-PLAYFUL FUTURISM
-      </p>
+    <div id="konami-overlay" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <p id="konami-text" class="font-display text-4xl md:text-8xl text-white">NEO-PLAYFUL FUTURISM</p>
     </div>
-  </body>
+
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
+    
+    <script src="{% static 'js/particles-config.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
 </html>
