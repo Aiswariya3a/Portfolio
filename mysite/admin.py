@@ -7,6 +7,13 @@ class ContactMessageAdmin(admin.ModelAdmin):
     readonly_fields = ('name', 'email', 'subject', 'message', 'created_at')
     list_filter = ('created_at',)
 
-admin.site.register(Project)
+@admin.register(Project)
+class ProjectAdmin(admin.ModelAdmin):
+    list_display = ('title', 'order', 'tech_stack')
+    search_fields = ('title', 'tech_stack')
+    # Automatically fills the 'slug' field based on the 'title'
+    prepopulated_fields = {'slug': ('title',)}
+
+
 admin.site.register(Skill)
 admin.site.register(SiteSetting)
