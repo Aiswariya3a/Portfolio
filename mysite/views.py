@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.core.mail import send_mail
 from .models import SiteSetting, Project, Skill
 from .forms import ContactForm
+import json
 
 def home(request):
     if request.method == 'POST':
@@ -37,6 +38,11 @@ def home(request):
     settings = SiteSetting.objects.first()
     projects = Project.objects.all()
 
+    # list of project titles
+    projects_data = list(Project.objects.values('title'))
+    # list of skill names
+    skills_data = list(Skill.objects.values('name'))
+
     # 1. Define the desired order for categories by their display names
     category_order = [
         'Programming Language',
@@ -67,6 +73,8 @@ def home(request):
             'projects': projects,
             'grouped_skills': final_grouped_skills,
             'contact_form': contact_form,
+            'projects_json': projects_data,
+            'skills_json': skills_data,
         }
     return render(request, 'mysite/home.html', context)
 

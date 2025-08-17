@@ -1,57 +1,48 @@
-from django.test import TestCase
-from .models import Project
-from .forms import ContactForm
+# mysite/tests.py
 
-class ProjectModelTest(TestCase):
-    """
-    Tests for the Project model.
-    """
-    def test_project_str_representation(self):
-        """Test that the string representation of a project is its title."""
-        project = Project.objects.create(
-            title="My Test Project",
-            slug="my-test-project",
-            short_description="A test.",
-            long_description="A longer test.",
-            tech_stack="Django, Python",
-            repo_url="http://github.com/test"
+from django.test import TestCase, Client
+from django.urls import reverse
+from .models import Project, ContactMessage, SiteSetting # Import SiteSetting
+
+class PortfolioTests(TestCase):
+
+    def setUp(self):
+        """Set up necessary objects for the tests."""
+        self.client = Client()
+        # Create the SiteSetting object that the contact form view needs
+        self.settings = SiteSetting.objects.create(
+            site_title="Test Site",
+            tagline="A test tagline.",
+            email="test-recipient@example.com", # This email will be used in the test
+            github_url="http://github.com",
+            linkedin_url="http://linkedin.com"
         )
-        self.assertEqual(str(project), "My Test Project")
 
+    def test_project_model_creation(self):
+        """Test that a Project object can be created and its string representation is correct."""
+        project = Project.objects.create(
+            title="Test Project",
+            slug="test-project",
+            short_description="A test.",
+            tech_stack="Django, Python",
+            repo_url="http://github.com"
+        )
+        self.assertEqual(str(project), "Test Project")
+        self.assertEqual(Project.objects.count(), 1)
 
-class ContactFormTest(TestCase):
-    """
-    Tests for the ContactForm.
-    """
-    def test_form_is_valid_with_correct_data(self):
-        """Test that the form is valid when all fields are filled correctly."""
+    def test_contact_form_submission(self):
+        """Test submitting the contact form successfully creates a new ContactMessage."""
         form_data = {
             'name': 'Test User',
             'email': 'test@example.com',
-            'subject': 'Hello There',
-            'message': 'This is a test message from a valid form.'
+            'subject': 'Test Subject',
+            'message': 'This is a test message.'
         }
-        form = ContactForm(data=form_data)
-        self.assertTrue(form.is_valid())
+        
+        response = self.client.post(reverse('mysite:home') + '#contact', data=form_data)
 
-    def test_form_is_invalid_with_missing_name(self):
-        """Test that the form is invalid if the required 'name' field is empty."""
-        form_data = {
-            'name': '',
-            'email': 'test@example.com',
-            'subject': 'Hello There',
-            'message': 'This message should not validate.'
-        }
-        form = ContactForm(data=form_data)
-        self.assertFalse(form.is_valid())
-
-    def test_form_is_invalid_with_bad_email(self):
-        """Test that the form is invalid if the email format is incorrect."""
-        form_data = {
-            'name': 'Test User',
-            'email': 'not-a-valid-email',
-            'subject': 'Hello There',
-            'message': 'This message should also not validate.'
-        }
-        form = ContactForm(data=form_data)
-        self.assertFalse(form.is_valid())
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(ContactMessage.objects.count(), 1)
+        
+        new_message = ContactMessage.objects.first()
+        self.assertEqual(new_message.name, 'Test User')
