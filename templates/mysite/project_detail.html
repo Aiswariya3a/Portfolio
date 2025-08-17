@@ -5,7 +5,7 @@
     <div class="max-w-4xl mx-auto px-4">
         <a href="{% url 'mysite:home' %}#projects" class="text-neon-teal hover:underline mb-8 inline-block">&larr; Back to All Projects</a>
         
-        <h1 class="font-display text-4xl md:text-6xl text-white mb-6">{{ project.title }}</h1>
+        <h1 class="font-display text-4xl md:text-4xl text-white mb-6">{{ project.title }}</h1>
         
         <div class="prose prose-lg prose-invert max-w-none text-gray-300">
             <p>{{ project.long_description|linebreaks }}</p>
