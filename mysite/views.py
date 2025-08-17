@@ -1,11 +1,39 @@
 # mysite/views.py
 
 from collections import defaultdict
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.core.mail import send_mail
 from .models import SiteSetting, Project, Skill
 from .forms import ContactForm
 
 def home(request):
+    if request.method == 'POST':
+        contact_form = ContactForm(request.POST)
+        if contact_form.is_valid():
+            message = contact_form.save() # Save the message to the DB
+
+            # --- Send the email ---
+            subject = f"New Contact Form Submission: {message.subject}"
+            email_message = f"""
+            You have a new message from {message.name} ({message.email}).
+
+            Message:
+            {message.message}
+            """
+            send_mail(
+                subject,
+                email_message,
+                'sender@example.com', # This is ignored by the console backend
+                [SiteSetting.objects.first().email], # Use the email from SiteSetting
+                fail_silently=False,
+            )
+            # ----------------------
+
+            messages.success(request, 'Your message has been sent successfully! I will get back to you soon.')
+            return redirect('/#contact')
+    else:
+        contact_form = ContactForm()
     settings = SiteSetting.objects.first()
     projects = Project.objects.all()
 

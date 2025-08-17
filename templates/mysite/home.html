@@ -116,4 +116,36 @@
     </div>
 </section>
 
+<section id="contact" class="bg-midnight py-20 md:py-32">
+    <div class="max-w-3xl mx-auto px-4 text-center">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="bg-neon-teal text-midnight p-4 rounded-lg mb-6 text-center font-bold">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <h2 class="font-display text-4xl text-white mb-4">Get In Touch</h2>
+        <p class="text-lg text-gray-400 mb-10">
+            Have a project in mind or just want to say hello? I'd love to hear from you.
+        </p>
+
+        <form method="POST" action="">
+            {% csrf_token %}
+            <div class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>{{ contact_form.name }}</div>
+                    <div>{{ contact_form.email }}</div>
+                </div>
+                <div>{{ contact_form.subject }}</div>
+                <div>{{ contact_form.message }}</div>
+                
+                <button type="submit" class="w-full sm:w-auto px-8 py-3 text-lg font-semibold text-white bg-gradient-to-r from-neon-teal to-neon-purple rounded-full hover:scale-105 transition-transform duration-300">
+                    Send Message
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
 {% endblock content %}
