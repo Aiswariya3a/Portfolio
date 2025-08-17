@@ -3,6 +3,7 @@
 from collections import defaultdict
 from django.shortcuts import render
 from .models import SiteSetting, Project, Skill
+from .forms import ContactForm
 
 def home(request):
     settings = SiteSetting.objects.first()
@@ -31,11 +32,12 @@ def home(request):
     
     # 5. (Optional) Filter out any empty categories
     final_grouped_skills = {k: v for k, v in grouped_skills.items() if v}
-
+    contact_form = ContactForm() # Create an instance of the form
 
     context = {
-        'settings': settings,
-        'projects': projects,
-        'grouped_skills': final_grouped_skills,
-    }
+            'settings': settings,
+            'projects': projects,
+            'grouped_skills': final_grouped_skills,
+            'contact_form': contact_form, # Add the form to the context
+        }
     return render(request, 'mysite/home.html', context)
