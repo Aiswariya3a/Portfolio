@@ -1,7 +1,7 @@
 # mysite/views.py
 
 from collections import defaultdict
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.core.mail import send_mail
 from .models import SiteSetting, Project, Skill
@@ -14,7 +14,7 @@ def home(request):
             message = contact_form.save() # Save the message to the DB
 
             # --- Send the email ---
-            subject = f"New Contact Form Submission: {message.subject}"
+            subject = f"Portfolio: {message.subject}"
             email_message = f"""
             You have a new message from {message.name} ({message.email}).
 
@@ -25,7 +25,7 @@ def home(request):
                 subject,
                 email_message,
                 'sender@example.com', # This is ignored by the console backend
-                [SiteSetting.objects.first().email], # Use the email from SiteSetting
+                [SiteSetting.objects.first().email],
                 fail_silently=False,
             )
             # ----------------------
@@ -66,6 +66,15 @@ def home(request):
             'settings': settings,
             'projects': projects,
             'grouped_skills': final_grouped_skills,
-            'contact_form': contact_form, # Add the form to the context
+            'contact_form': contact_form,
         }
     return render(request, 'mysite/home.html', context)
+
+def project_detail(request, slug):
+    project = get_object_or_404(Project, slug=slug)
+    settings = SiteSetting.objects.first() # For base template context
+    context = {
+        'project': project,
+        'settings': settings,
+    }
+    return render(request, 'mysite/project_detail.html', context)

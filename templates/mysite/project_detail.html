@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="bg-midnight py-20 md:py-32">
+    <div class="max-w-4xl mx-auto px-4">
+        <a href="{% url 'mysite:home' %}#projects" class="text-neon-teal hover:underline mb-8 inline-block">&larr; Back to All Projects</a>
+        
+        <h1 class="font-display text-4xl md:text-6xl text-white mb-6">{{ project.title }}</h1>
+        
+        <div class="prose prose-lg prose-invert max-w-none text-gray-300">
+            <p>{{ project.long_description|linebreaks }}</p>
+        </div>
+        
+        <div class="mt-10">
+            <h3 class="font-display text-2xl text-white mb-4">Technology Stack</h3>
+            <div class="flex flex-wrap gap-3">
+                {% for tech in project.get_tech_stack_as_list %}
+                <span class="bg-charcoal text-neon-teal text-base font-semibold px-4 py-2 rounded-md">{{ tech }}</span>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="mt-10">
+            <a href="{{ project.repo_url }}" target="_blank" rel="noopener noreferrer" class="text-neon-purple font-semibold hover:underline text-lg">
+                View Repository &rarr;
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock content %}
