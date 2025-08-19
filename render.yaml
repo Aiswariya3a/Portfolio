@@ -1,15 +1,12 @@
-services:
-  # PostgreSQL database
-  - type: database
-    name: portfolio-db
+databases:
+  - name: portfolio-db
     plan: free
-    ipAllowList: [] # Allows access from anywhere
 
-  # The Django web service
+services:
   - type: web
     name: Aiswariya-portfolio
+    env: python
     plan: free
-    runtime: python
     buildCommand: |
       pip install -r requirements.txt
       python manage.py collectstatic --no-input
@@ -17,14 +14,9 @@ services:
       python manage.py seed_data
     startCommand: gunicorn portfolio.wsgi:application
     envVars:
-      - key: DATABASE_URL
-        fromService:
-          type: psql
-          name: portfolio-db
-          property: connectionString
       - key: SECRET_KEY
-        generateValue: true # Render will automatically generate a secure key
+        generateValue: true
       - key: PYTHON_VERSION
         value: 3.11.9
       - key: ALLOWED_HOSTS
-        value: ${RENDER_EXTERNAL_HOSTNAME}
+        value: "${RENDER_EXTERNAL_HOSTNAME}"
