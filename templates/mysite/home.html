@@ -49,9 +49,11 @@
                 <p class="text-lg text-gray-300 mb-6 leading-relaxed">
                     I led my team in the Smart India Hackathon 2024 Grand Finale and have presented award-winning projects at major conferences. I'm driven by a desire to turn complex challenges into impactful, real-world applications.
                 </p>
-                <a href="#contact" class="inline-block px-8 py-3 text-lg font-semibold text-white bg-gradient-to-r from-neon-teal to-neon-purple rounded-full hover:scale-105 transition-transform duration-300">
-                    Let's Connect
+                {% if settings.resume_file %}
+                <a href="{{ settings.resume_file.url }}" download class="inline-block px-8 py-3 text-lg font-semibold text-white bg-gradient-to-r from-neon-teal to-neon-purple rounded-full hover:scale-105 transition-transform duration-300">
+                    Download Resume  &#9660;
                 </a>
+                {% endif %}
             </div>
 
         </div>
