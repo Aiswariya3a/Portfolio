@@ -1,6 +1,6 @@
 services:
   # PostgreSQL database
-  - type: psql
+  - type: database
     name: portfolio-db
     plan: free
     ipAllowList: [] # Allows access from anywhere
