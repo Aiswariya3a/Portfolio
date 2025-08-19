@@ -52,6 +52,8 @@ class SiteSetting(models.Model):
     github_url = models.URLField(max_length=200)
     linkedin_url = models.URLField(max_length=200)
     profile_picture = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
+    resume_file = models.FileField(upload_to='resumes/', blank=True, null=True, help_text="Upload your resume in PDF format.")
+
 
 
     def __str__(self):
