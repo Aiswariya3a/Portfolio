@@ -1,6 +1,5 @@
-# mysite/models.py
-
 from django.db import models
+from django.urls import reverse
 
 class Project(models.Model):
     title = models.CharField(max_length=200)
@@ -17,8 +16,10 @@ class Project(models.Model):
 
     def __str__(self):
         return self.title
+    
+    def get_absolute_url(self):
+        return reverse('mysite:project_detail', kwargs={'slug': self.slug})
 
-    # Add this new method
     def get_tech_stack_as_list(self):
         return [tech.strip() for tech in self.tech_stack.split(',')]
 
