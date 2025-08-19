@@ -1,5 +1,10 @@
 {% extends "base.html" %}
+{% block page_title %}{{ project.title }} | {{ settings.site_title }}{% endblock page_title %}
+{% block meta_description %}{{ project.short_description }}{% endblock meta_description %}
 
+{% block og_title %}{{ project.title }}{% endblock og_title %}
+{% block og_description %}{{ project.short_description }}{% endblock og_description %}
+{% block og_image %}{% if project.image %}{{ request.scheme }}://{{ request.get_host }}{{ project.image.url }}{% endif %}{% endblock og_image %}
 {% block content %}
 <section class="bg-midnight py-20 md:py-32">
     <div class="max-w-4xl mx-auto px-4">

@@ -46,6 +46,7 @@ class SiteSetting(models.Model):
     tagline = models.CharField(max_length=300)
     site_description = models.TextField(blank=True, help_text="A short description for SEO.")
     site_keywords = models.CharField(max_length=300, blank=True, help_text="Comma-separated keywords for SEO.")
+    social_preview_image = models.ImageField(upload_to='social_previews/', blank=True, null=True, help_text="A 1200x630px image for social media previews.")
     email = models.EmailField(max_length=200)
     github_url = models.URLField(max_length=200)
     linkedin_url = models.URLField(max_length=200)

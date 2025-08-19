@@ -5,9 +5,28 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{ settings.site_title }}</title>
-    <meta name="description" content="{{ settings.site_description }}" />
+    <meta
+      name="description"
+      content="{% block meta_description %}{{ settings.site_description }}{% endblock meta_description %}"
+    />
     <meta name="keywords" content="{{ settings.site_keywords }}" />
     <meta name="author" content="Aiswariya S" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+    <meta
+      property="og:title"
+      content="{% block og_title %}{{ settings.site_title }}{% endblock og_title %}"
+    />
+    <meta
+      property="og:description"
+      content="{% block og_description %}{{ settings.site_description }}{% endblock og_description %}"
+    />
+    {% if settings.social_preview_image %}
+    <meta
+      property="og:image"
+      content="{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{{ settings.social_preview_image.url }}{% endblock og_image %}"
+    />
+    {% endif %}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -17,8 +36,8 @@
 
     <link href="{% static 'css/output.css' %}" rel="stylesheet" />
     <link href="{% static 'css/output.css' %}" rel="stylesheet" />
-    {{ projects_json|json_script:"projects-data" }}
-    {{ skills_json|json_script:"skills-data" }}
+    {{ projects_json|json_script:"projects-data" }} {{
+    skills_json|json_script:"skills-data" }}
   </head>
   <body class="bg-gray-900 text-white">
     <main>{% block content %} {% endblock content %}</main>
@@ -55,7 +74,10 @@
         </svg>
       </button>
 
-      <div id="chat-window" class="fixed bottom-24 right-8 w-96 h-[32rem] bg-charcoal rounded-xl shadow-2xl z-40 p-4 flex flex-col hidden">
+      <div
+        id="chat-window"
+        class="fixed bottom-24 right-8 w-96 h-[32rem] bg-charcoal rounded-xl shadow-2xl z-40 p-4 flex flex-col hidden"
+      >
         <div class="flex justify-between items-center mb-4">
           <h3 class="font-display text-xl text-white">
             Chat with my AI Assistant
