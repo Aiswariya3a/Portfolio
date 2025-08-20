@@ -4,7 +4,7 @@ databases:
 
 services:
   - type: web
-    name: portfolio-website
+    name: aiswariya3a
     runtime: python
     plan: free
     buildCommand: ./build.sh
