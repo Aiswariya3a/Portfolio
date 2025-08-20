@@ -178,7 +178,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const projectTitles = projectsData.map((p) => p.title).join(", ");
         return `She has worked on several exciting projects, including: ${projectTitles}. Which one are you most interested in?`;
       }
-      if (message.includes("monitoring")) {
+      if (message.includes("monitoring") || message.includes("classroom") || message.includes("class")) {
         return "The Classroom Monitoring System uses deep learning to analyze student engagement. It was recognized by NEC Japan and presented at conferences!";
       }
       if (message.includes("chart") || message.includes("captioning")) {
@@ -195,6 +195,9 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       if (message.includes("thank") || message.includes("bye")) {
         return "You're welcome! Have a great day.";
+      }
+      if (message.includes("mathi") || message.includes("yuvarajan")) {
+        return "Romba kashtam sir....";
       }
       return "That's a great question! I'm a rule-based assistant, so I can best answer questions about Aiswariya's skills, projects, or how to get in contact.";
     };
