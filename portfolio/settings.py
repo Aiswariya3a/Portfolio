@@ -117,6 +117,21 @@ USE_I18N = True
 
 USE_TZ = True
 
+
+# Default primary key field type
+# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Add this setting to tell Django where to find project-wide static files.
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
 # --- Add Cloudinary Configuration ---
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': config('CLOUDINARY_CLOUD_NAME'),
@@ -144,19 +159,6 @@ else:
         },
     }
 
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
-
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# Add this setting to tell Django where to find project-wide static files.
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-]
-
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # --- Email Configuration ---
 if DEBUG:
