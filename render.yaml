@@ -10,7 +10,7 @@ services:
     runtime: python
     plan: free
     buildCommand: "./build.sh"
-    startCommand: gunicorn portfolio.wsgi:application
+    startCommand: "gunicorn portfolio.wsgi:application --bind 0.0.0.0:${PORT}"
     envVars:
       - key: DATABASE_URL
         fromService:
