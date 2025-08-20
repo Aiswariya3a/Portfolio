@@ -1,7 +1,6 @@
 services:
   # A PostgreSQL database service
-  - type: database
-    name: portfolio-db
+  - name: portfolio-db
     plan: free
 
   # The Django web service
